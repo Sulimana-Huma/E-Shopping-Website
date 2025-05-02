@@ -1,0 +1,698 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Humaim_ShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="seller_id" Type="int" Nullable="false" />
+          <Property Name="buyer_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="review_id" />
+          </Key>
+          <Property Name="review_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="seller_id" Type="int" Nullable="false" />
+          <Property Name="buyer_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="review_message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="rating" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Saled_out">
+          <Key>
+            <PropertyRef Name="SALED_id" />
+          </Key>
+          <Property Name="SALED_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="sold_at" Type="datetime" />
+          <Property Name="seller_id" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_admin">
+          <Key>
+            <PropertyRef Name="ad_id" />
+          </Key>
+          <Property Name="ad_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad_username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ad_password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsAccessGranted" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_category">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cat_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cat_image" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="cat_fk_ad" Type="int" />
+          <Property Name="cat_status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_product">
+          <Key>
+            <PropertyRef Name="pro_id" />
+          </Key>
+          <Property Name="pro_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pro_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="pro_image" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="pro_des" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="pro_price" Type="int" Nullable="false" />
+          <Property Name="total_availables" Type="int" Nullable="false" />
+          <Property Name="pro_fk_user" Type="int" />
+          <Property Name="pro_fk_category" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_user">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="u_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="u_email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="u_password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="u_image" Type="nvarchar(max)" />
+          <Property Name="u_contact" Type="nvarchar" MaxLength="20" />
+          <Property Name="u_city" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="u_accountType" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Reviews__buyer_i__6AEFE058">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="buyer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__order_i__6CD828CA">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__product__6BE40491">
+          <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_product">
+              <PropertyRef Name="pro_id" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__seller___69FBBC1F">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="seller_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_categ__cat_f__503BEA1C">
+          <End Role="tbl_admin" Type="Self.tbl_admin" Multiplicity="0..1" />
+          <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_admin">
+              <PropertyRef Name="ad_id" />
+            </Principal>
+            <Dependent Role="tbl_category">
+              <PropertyRef Name="cat_fk_ad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_produ__pro_f__5AB9788F">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="0..1" />
+          <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="tbl_product">
+              <PropertyRef Name="pro_fk_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_produ__pro_f__5BAD9CC8">
+          <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="0..1" />
+          <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_category">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="tbl_product">
+              <PropertyRef Name="pro_fk_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaledOut_Product">
+          <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="1" />
+          <End Role="Saled_out" Type="Self.Saled_out" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_product">
+              <PropertyRef Name="pro_id" />
+            </Principal>
+            <Dependent Role="Saled_out">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaledOut_Seller">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="0..1" />
+          <End Role="Saled_out" Type="Self.Saled_out" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="Saled_out">
+              <PropertyRef Name="seller_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Humaim_ShoppingModelStoreContainer">
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Saled_out" EntityType="Self.Saled_out" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_admin" EntityType="Self.tbl_admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_category" EntityType="Self.tbl_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_product" EntityType="Self.tbl_product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_user" EntityType="Self.tbl_user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Reviews__buyer_i__6AEFE058" Association="Self.FK__Reviews__buyer_i__6AEFE058">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__order_i__6CD828CA" Association="Self.FK__Reviews__order_i__6CD828CA">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__product__6BE40491" Association="Self.FK__Reviews__product__6BE40491">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__seller___69FBBC1F" Association="Self.FK__Reviews__seller___69FBBC1F">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_categ__cat_f__503BEA1C" Association="Self.FK__tbl_categ__cat_f__503BEA1C">
+            <End Role="tbl_admin" EntitySet="tbl_admin" />
+            <End Role="tbl_category" EntitySet="tbl_category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__pro_f__5AB9788F" Association="Self.FK__tbl_produ__pro_f__5AB9788F">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="tbl_product" EntitySet="tbl_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__pro_f__5BAD9CC8" Association="Self.FK__tbl_produ__pro_f__5BAD9CC8">
+            <End Role="tbl_category" EntitySet="tbl_category" />
+            <End Role="tbl_product" EntitySet="tbl_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaledOut_Product" Association="Self.FK_SaledOut_Product">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="Saled_out" EntitySet="Saled_out" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaledOut_Seller" Association="Self.FK_SaledOut_Seller">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="Saled_out" EntitySet="Saled_out" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Humaim_ShoppingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_admin">
+          <Key>
+            <PropertyRef Name="ad_id" />
+          </Key>
+          <Property Name="ad_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad_username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ad_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_category" Relationship="Self.FK__tbl_categ__cat_f__6754599E" FromRole="tbl_admin" ToRole="tbl_category" />
+          <Property Name="IsAccessGranted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tbl_category">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cat_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cat_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cat_fk_ad" Type="Int32" />
+          <Property Name="cat_status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbl_admin" Relationship="Self.FK__tbl_categ__cat_f__6754599E" FromRole="tbl_category" ToRole="tbl_admin" />
+          <NavigationProperty Name="tbl_product" Relationship="Humaim_ShoppingModel.FK__tbl_produ__pro_f__7F2BE32F" FromRole="tbl_category" ToRole="tbl_product" />
+          <NavigationProperty Name="Orders" Relationship="Humaim_ShoppingModel.FK__Orders__category__0D7A0286" FromRole="tbl_category" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="tbl_user">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="u_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="u_email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="u_password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="u_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="u_contact" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_product" Relationship="Humaim_ShoppingModel.FK__tbl_produ__pro_f__7E37BEF6" FromRole="tbl_user" ToRole="tbl_product" />
+          <NavigationProperty Name="Orders" Relationship="Humaim_ShoppingModel.FK__Orders__buyer_id__0B91BA14" FromRole="tbl_user" ToRole="Order" />
+          <NavigationProperty Name="Orders1" Relationship="Humaim_ShoppingModel.FK__Orders__seller_i__0A9D95DB" FromRole="tbl_user" ToRole="Order" />
+          <Property Name="u_city" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="u_accountType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Reviews" Relationship="Humaim_ShoppingModel.FK__Reviews__buyer_i__6AEFE058" FromRole="tbl_user" ToRole="Review" />
+          <NavigationProperty Name="Reviews1" Relationship="Humaim_ShoppingModel.FK__Reviews__seller___69FBBC1F" FromRole="tbl_user" ToRole="Review" />
+          <NavigationProperty Name="Saled_out" Relationship="Humaim_ShoppingModel.FK_SaledOut_Seller" FromRole="tbl_user" ToRole="Saled_out" />
+          </EntityType>
+        <Association Name="FK__tbl_categ__cat_f__6754599E">
+          <End Role="tbl_admin" Type="Self.tbl_admin" Multiplicity="0..1" />
+          <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_admin">
+              <PropertyRef Name="ad_id" />
+            </Principal>
+            <Dependent Role="tbl_category">
+              <PropertyRef Name="cat_fk_ad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Humaim_ShoppingEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_admin" EntityType="Self.tbl_admin" />
+          <EntitySet Name="tbl_category" EntityType="Self.tbl_category" />
+          <EntitySet Name="tbl_user" EntityType="Self.tbl_user" />
+          <AssociationSet Name="FK__tbl_categ__cat_f__6754599E" Association="Self.FK__tbl_categ__cat_f__6754599E">
+            <End Role="tbl_admin" EntitySet="tbl_admin" />
+            <End Role="tbl_category" EntitySet="tbl_category" />
+          </AssociationSet>
+          <EntitySet Name="tbl_product" EntityType="Humaim_ShoppingModel.tbl_product" />
+          <AssociationSet Name="FK__tbl_produ__pro_f__7F2BE32F" Association="Humaim_ShoppingModel.FK__tbl_produ__pro_f__7F2BE32F">
+            <End Role="tbl_category" EntitySet="tbl_category" />
+            <End Role="tbl_product" EntitySet="tbl_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__pro_f__7E37BEF6" Association="Humaim_ShoppingModel.FK__tbl_produ__pro_f__7E37BEF6">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="tbl_product" EntitySet="tbl_product" />
+          </AssociationSet>
+          <EntitySet Name="Orders" EntityType="Humaim_ShoppingModel.Order" />
+          <AssociationSet Name="FK__Orders__buyer_id__0B91BA14" Association="Humaim_ShoppingModel.FK__Orders__buyer_id__0B91BA14">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__category__0D7A0286" Association="Humaim_ShoppingModel.FK__Orders__category__0D7A0286">
+            <End Role="tbl_category" EntitySet="tbl_category" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__product___0C85DE4D" Association="Humaim_ShoppingModel.FK__Orders__product___0C85DE4D">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__seller_i__0A9D95DB" Association="Humaim_ShoppingModel.FK__Orders__seller_i__0A9D95DB">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Product" Association="Humaim_ShoppingModel.FK_Orders_Product">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="Reviews" EntityType="Humaim_ShoppingModel.Review" />
+          <AssociationSet Name="FK__Reviews__order_i__6CD828CA" Association="Humaim_ShoppingModel.FK__Reviews__order_i__6CD828CA">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__buyer_i__6AEFE058" Association="Humaim_ShoppingModel.FK__Reviews__buyer_i__6AEFE058">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__product__6BE40491" Association="Humaim_ShoppingModel.FK__Reviews__product__6BE40491">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__seller___69FBBC1F" Association="Humaim_ShoppingModel.FK__Reviews__seller___69FBBC1F">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <EntitySet Name="Saled_out" EntityType="Humaim_ShoppingModel.Saled_out" />
+          <AssociationSet Name="FK_SaledOut_Seller" Association="Humaim_ShoppingModel.FK_SaledOut_Seller">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="Saled_out" EntitySet="Saled_out" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaledOut_Product" Association="Humaim_ShoppingModel.FK_SaledOut_Product">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="Saled_out" EntitySet="Saled_out" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="tbl_product">
+          <Key>
+            <PropertyRef Name="pro_id" />
+          </Key>
+          <Property Name="pro_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pro_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pro_image" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pro_des" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pro_price" Type="Int32" Nullable="false" />
+          <Property Name="pro_fk_user" Type="Int32" />
+          <Property Name="pro_fk_category" Type="Int32" />
+          <Property Name="total_availables" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_category" Relationship="Humaim_ShoppingModel.FK__tbl_produ__pro_f__7F2BE32F" FromRole="tbl_product" ToRole="tbl_category" />
+          <NavigationProperty Name="tbl_user" Relationship="Humaim_ShoppingModel.FK__tbl_produ__pro_f__7E37BEF6" FromRole="tbl_product" ToRole="tbl_user" />
+          <NavigationProperty Name="Orders" Relationship="Humaim_ShoppingModel.FK__Orders__product___0C85DE4D" FromRole="tbl_product" ToRole="Order" />
+          <NavigationProperty Name="Orders1" Relationship="Humaim_ShoppingModel.FK_Orders_Product" FromRole="tbl_product" ToRole="Order" />
+          <NavigationProperty Name="Reviews" Relationship="Humaim_ShoppingModel.FK__Reviews__product__6BE40491" FromRole="tbl_product" ToRole="Review" />
+          <NavigationProperty Name="Saled_out" Relationship="Humaim_ShoppingModel.FK_SaledOut_Product" FromRole="tbl_product" ToRole="Saled_out" />
+        </EntityType>
+        <Association Name="FK__tbl_produ__pro_f__7F2BE32F">
+          <End Type="Humaim_ShoppingModel.tbl_category" Role="tbl_category" Multiplicity="0..1" />
+          <End Type="Humaim_ShoppingModel.tbl_product" Role="tbl_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_category">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="tbl_product">
+              <PropertyRef Name="pro_fk_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_produ__pro_f__7E37BEF6">
+          <End Type="Humaim_ShoppingModel.tbl_user" Role="tbl_user" Multiplicity="0..1" />
+          <End Type="Humaim_ShoppingModel.tbl_product" Role="tbl_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="tbl_product">
+              <PropertyRef Name="pro_fk_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="seller_id" Type="Int32" Nullable="false" />
+          <Property Name="buyer_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_user" Relationship="Humaim_ShoppingModel.FK__Orders__buyer_id__0B91BA14" FromRole="Order" ToRole="tbl_user" />
+          <NavigationProperty Name="tbl_category" Relationship="Humaim_ShoppingModel.FK__Orders__category__0D7A0286" FromRole="Order" ToRole="tbl_category" />
+          <NavigationProperty Name="tbl_product" Relationship="Humaim_ShoppingModel.FK__Orders__product___0C85DE4D" FromRole="Order" ToRole="tbl_product" />
+          <NavigationProperty Name="tbl_user1" Relationship="Humaim_ShoppingModel.FK__Orders__seller_i__0A9D95DB" FromRole="Order" ToRole="tbl_user" />
+          <NavigationProperty Name="tbl_product1" Relationship="Humaim_ShoppingModel.FK_Orders_Product" FromRole="Order" ToRole="tbl_product" />
+          <NavigationProperty Name="Reviews" Relationship="Humaim_ShoppingModel.FK__Reviews__order_i__6CD828CA" FromRole="Order" ToRole="Review" />
+        </EntityType>
+        <Association Name="FK__Orders__buyer_id__0B91BA14">
+          <End Type="Humaim_ShoppingModel.tbl_user" Role="tbl_user" Multiplicity="1" />
+          <End Type="Humaim_ShoppingModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="buyer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__category__0D7A0286">
+          <End Type="Humaim_ShoppingModel.tbl_category" Role="tbl_category" Multiplicity="1" />
+          <End Type="Humaim_ShoppingModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_category">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__product___0C85DE4D">
+          <End Type="Humaim_ShoppingModel.tbl_product" Role="tbl_product" Multiplicity="1" />
+          <End Type="Humaim_ShoppingModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_product">
+              <PropertyRef Name="pro_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__seller_i__0A9D95DB">
+          <End Type="Humaim_ShoppingModel.tbl_user" Role="tbl_user" Multiplicity="1" />
+          <End Type="Humaim_ShoppingModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="seller_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Product">
+          <End Type="Humaim_ShoppingModel.tbl_product" Role="tbl_product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Humaim_ShoppingModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_product">
+              <PropertyRef Name="pro_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="review_id" />
+          </Key>
+          <Property Name="review_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="seller_id" Type="Int32" Nullable="false" />
+          <Property Name="buyer_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="review_message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Humaim_ShoppingModel.FK__Reviews__order_i__6CD828CA" FromRole="Review" ToRole="Order" />
+          <NavigationProperty Name="tbl_user" Relationship="Humaim_ShoppingModel.FK__Reviews__buyer_i__6AEFE058" FromRole="Review" ToRole="tbl_user" />
+          <NavigationProperty Name="tbl_product" Relationship="Humaim_ShoppingModel.FK__Reviews__product__6BE40491" FromRole="Review" ToRole="tbl_product" />
+          <NavigationProperty Name="tbl_user1" Relationship="Humaim_ShoppingModel.FK__Reviews__seller___69FBBC1F" FromRole="Review" ToRole="tbl_user" />
+          <Property Name="rating" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Reviews__order_i__6CD828CA">
+          <End Type="Humaim_ShoppingModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="Humaim_ShoppingModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__buyer_i__6AEFE058">
+          <End Type="Humaim_ShoppingModel.tbl_user" Role="tbl_user" Multiplicity="1" />
+          <End Type="Humaim_ShoppingModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="buyer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__product__6BE40491">
+          <End Type="Humaim_ShoppingModel.tbl_product" Role="tbl_product" Multiplicity="1" />
+          <End Type="Humaim_ShoppingModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_product">
+              <PropertyRef Name="pro_id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__seller___69FBBC1F">
+          <End Type="Humaim_ShoppingModel.tbl_user" Role="tbl_user" Multiplicity="1" />
+          <End Type="Humaim_ShoppingModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="seller_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Saled_out">
+          <Key>
+            <PropertyRef Name="SALED_id" />
+          </Key>
+          <Property Name="SALED_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="sold_at" Type="DateTime" Precision="3" />
+          <Property Name="seller_id" Type="Int32" />
+          <NavigationProperty Name="tbl_user" Relationship="Humaim_ShoppingModel.FK_SaledOut_Seller" FromRole="Saled_out" ToRole="tbl_user" />
+          <NavigationProperty Name="tbl_product" Relationship="Humaim_ShoppingModel.FK_SaledOut_Product" FromRole="Saled_out" ToRole="tbl_product" />
+        </EntityType>
+        <Association Name="FK_SaledOut_Seller">
+          <End Type="Humaim_ShoppingModel.tbl_user" Role="tbl_user" Multiplicity="0..1" />
+          <End Type="Humaim_ShoppingModel.Saled_out" Role="Saled_out" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="Saled_out">
+              <PropertyRef Name="seller_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaledOut_Product">
+          <End Type="Humaim_ShoppingModel.tbl_product" Role="tbl_product" Multiplicity="1" />
+          <End Type="Humaim_ShoppingModel.Saled_out" Role="Saled_out" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_product">
+              <PropertyRef Name="pro_id" />
+            </Principal>
+            <Dependent Role="Saled_out">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Humaim_ShoppingModelStoreContainer" CdmEntityContainer="Humaim_ShoppingEntities2">
+          <EntitySetMapping Name="tbl_admin">
+            <EntityTypeMapping TypeName="Humaim_ShoppingModel.tbl_admin">
+              <MappingFragment StoreEntitySet="tbl_admin">
+                <ScalarProperty Name="IsAccessGranted" ColumnName="IsAccessGranted" />
+                <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+                <ScalarProperty Name="ad_username" ColumnName="ad_username" />
+                <ScalarProperty Name="ad_password" ColumnName="ad_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_category">
+            <EntityTypeMapping TypeName="Humaim_ShoppingModel.tbl_category">
+              <MappingFragment StoreEntitySet="tbl_category">
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+                <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+                <ScalarProperty Name="cat_image" ColumnName="cat_image" />
+                <ScalarProperty Name="cat_fk_ad" ColumnName="cat_fk_ad" />
+                <ScalarProperty Name="cat_status" ColumnName="cat_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_user">
+            <EntityTypeMapping TypeName="Humaim_ShoppingModel.tbl_user">
+              <MappingFragment StoreEntitySet="tbl_user">
+                <ScalarProperty Name="u_accountType" ColumnName="u_accountType" />
+                <ScalarProperty Name="u_city" ColumnName="u_city" />
+                <ScalarProperty Name="u_id" ColumnName="u_id" />
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_email" ColumnName="u_email" />
+                <ScalarProperty Name="u_password" ColumnName="u_password" />
+                <ScalarProperty Name="u_image" ColumnName="u_image" />
+                <ScalarProperty Name="u_contact" ColumnName="u_contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_product">
+            <EntityTypeMapping TypeName="Humaim_ShoppingModel.tbl_product">
+              <MappingFragment StoreEntitySet="tbl_product">
+                <ScalarProperty Name="total_availables" ColumnName="total_availables" />
+                <ScalarProperty Name="pro_fk_category" ColumnName="pro_fk_category" />
+                <ScalarProperty Name="pro_fk_user" ColumnName="pro_fk_user" />
+                <ScalarProperty Name="pro_price" ColumnName="pro_price" />
+                <ScalarProperty Name="pro_des" ColumnName="pro_des" />
+                <ScalarProperty Name="pro_image" ColumnName="pro_image" />
+                <ScalarProperty Name="pro_name" ColumnName="pro_name" />
+                <ScalarProperty Name="pro_id" ColumnName="pro_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Humaim_ShoppingModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="buyer_id" ColumnName="buyer_id" />
+                <ScalarProperty Name="seller_id" ColumnName="seller_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="Humaim_ShoppingModel.Review">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="review_message" ColumnName="review_message" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="buyer_id" ColumnName="buyer_id" />
+                <ScalarProperty Name="seller_id" ColumnName="seller_id" />
+                <ScalarProperty Name="review_id" ColumnName="review_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Saled_out">
+            <EntityTypeMapping TypeName="Humaim_ShoppingModel.Saled_out">
+              <MappingFragment StoreEntitySet="Saled_out">
+                <ScalarProperty Name="seller_id" ColumnName="seller_id" />
+                <ScalarProperty Name="sold_at" ColumnName="sold_at" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="SALED_id" ColumnName="SALED_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="321608356eb7463989ef7f76be09c82f" Name="Diagram1" ZoomLevel="90">
+        <EntityTypeShape EntityType="Humaim_ShoppingModel.tbl_admin" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Humaim_ShoppingModel.tbl_category" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Humaim_ShoppingModel.tbl_user" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__tbl_categ__cat_f__6754599E" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Humaim_ShoppingModel.tbl_product" Width="1.5" PointX="5.25" PointY="3" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__tbl_produ__pro_f__7F2BE32F" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__tbl_produ__pro_f__7E37BEF6" />
+        <EntityTypeShape EntityType="Humaim_ShoppingModel.Order" Width="1.5" PointX="10.5" PointY="3.25" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__Orders__buyer_id__0B91BA14" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__Orders__category__0D7A0286" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__Orders__product___0C85DE4D" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__Orders__seller_i__0A9D95DB" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK_Orders_Product" />
+        <EntityTypeShape EntityType="Humaim_ShoppingModel.Review" Width="1.5" PointX="12.75" PointY="4.5" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__Reviews__order_i__6CD828CA" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__Reviews__buyer_i__6AEFE058" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__Reviews__product__6BE40491" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK__Reviews__seller___69FBBC1F" />
+        <EntityTypeShape EntityType="Humaim_ShoppingModel.Saled_out" Width="1.5" PointX="8.25" PointY="3.125" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK_SaledOut_Seller" />
+        <AssociationConnector Association="Humaim_ShoppingModel.FK_SaledOut_Product" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

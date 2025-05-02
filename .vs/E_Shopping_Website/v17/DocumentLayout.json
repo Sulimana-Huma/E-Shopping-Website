@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8EED16AB-F629-4FF1-B851-73074E81B105}|E_Shopping_Website.csproj|g:\\my drive\\bcs 5th sem\\visual programming\\e_shopping_website\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EED16AB-F629-4FF1-B851-73074E81B105}|E_Shopping_Website.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EED16AB-F629-4FF1-B851-73074E81B105}|E_Shopping_Website.csproj|G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\views\\user\\myposts.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8EED16AB-F629-4FF1-B851-73074E81B105}|E_Shopping_Website.csproj|solutionrelative:views\\user\\myposts.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EED16AB-F629-4FF1-B851-73074E81B105}|E_Shopping_Website.csproj|G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\views\\user\\myorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8EED16AB-F629-4FF1-B851-73074E81B105}|E_Shopping_Website.csproj|solutionrelative:views\\user\\myorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EED16AB-F629-4FF1-B851-73074E81B105}|E_Shopping_Website.csproj|G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\views\\user\\ordersreceived.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8EED16AB-F629-4FF1-B851-73074E81B105}|E_Shopping_Website.csproj|solutionrelative:views\\user\\ordersreceived.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OrdersReceived.cshtml",
+              "DocumentMoniker": "G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\Views\\User\\OrdersReceived.cshtml",
+              "RelativeDocumentMoniker": "Views\\User\\OrdersReceived.cshtml",
+              "ToolTip": "G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\Views\\User\\OrdersReceived.cshtml",
+              "RelativeToolTip": "Views\\User\\OrdersReceived.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-12T14:58:59.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MyOrders.cshtml",
+              "DocumentMoniker": "G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\Views\\User\\MyOrders.cshtml",
+              "RelativeDocumentMoniker": "Views\\User\\MyOrders.cshtml",
+              "ToolTip": "G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\Views\\User\\MyOrders.cshtml",
+              "RelativeToolTip": "Views\\User\\MyOrders.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-12T14:58:51.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MyPosts.cshtml",
+              "DocumentMoniker": "G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\Views\\User\\MyPosts.cshtml",
+              "RelativeDocumentMoniker": "Views\\User\\MyPosts.cshtml",
+              "ToolTip": "G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\Views\\User\\MyPosts.cshtml",
+              "RelativeToolTip": "Views\\User\\MyPosts.cshtml",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAAAKAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-31T04:03:18.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "G:\\My Drive\\BCS 5th Sem\\Visual Programming\\E_Shopping_Website\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AgIAABcBAAAAAAAAAAAcwCMBAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T04:12:30.358Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
